@@ -1,0 +1,32 @@
+
+.searchbar_container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.searchbar_container input {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid rgb(220, 220, 220); 
+    border-radius: 7px;
+}
+
+.searchbar_container > input:focus {
+    outline: none;
+    border: 2px solid rgb(37, 147, 255); 
+}
+
+.searchbar_container button {
+    cursor: pointer;
+    width: 80px;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(37, 147, 255);
+    border: none;
+    border-radius: 7px;
+}
+
+.searchbar_container > button:hover {
+    background-color: rgb(30, 125, 220);
+}
