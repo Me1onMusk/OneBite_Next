@@ -1,37 +1,10 @@
-// CSS Module
-import SearchableLayout from "@/components/searchable-layout";
-import style from "./index.module.css"; 
-import { ReactNode } from "react";
-import books from '@/mock/books.json'
-import BookItem from "@/components/book-item";
+
+import style from './index.module.css';
 
 export default function Home() {
   return (
-    <div className={style.container}>
-        <section>
-            <h3>지금 추천하는 도서</h3>
-            {books.map((book) => <BookItem key={book.id} {...book}/>)}
-        </section>
-        <section>
-            <h3>등록된 모든 도서</h3>
-            {books.map((book) => <BookItem key={book.id} {...book}/>)}
-        </section>
-    </div>
+    <>
+        <h4 className={style.h1}>메인</h4>
+    </>
   );
-};
-
-Home.getLayout = (page: ReactNode) => {
-    return <SearchableLayout>{page}</SearchableLayout>
 }
-
-// export default function Home() {
-//     return (
-//         <>
-//             <div>
-//                 <h1 className={style.h1}>인덱스</h1>
-//                 <h1 className={style.h2}>인덱스</h1>
-//             </div>
-//         </>
-
-//     );
-//   };

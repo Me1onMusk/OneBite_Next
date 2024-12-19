@@ -2,8 +2,8 @@
 
 export default function Page() {
     return (
-        <div>
-            오류 페이지지
-        </div>
+        <>
+            존재하지 않는 페이지
+        </>
     );
 };
