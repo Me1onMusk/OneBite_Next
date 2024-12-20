@@ -1,6 +1,8 @@
 
 import type { BookData } from "@/types_db";
 import style from './[id].module.css';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import fetchOneBook from "@/lib/fetch-one-book";
 
 // Book 데이터 1개 Mock // 
 const mockData = {
@@ -13,7 +15,22 @@ const mockData = {
     "coverImgUrl": "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg"
 };
 
-export default function Page() {
+// SSR 서버 사이드 랜더링 //
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+    const id = context.params!.id; 
+    const book = await fetchOneBook(Number(id));
+
+    return (
+        {
+            props : {
+                book
+            }
+        }
+    );
+};
+
+export default function Page({book}:InferGetServerSidePropsType<typeof getServerSideProps>) {
+    if(!book) return "문제가 발생했습니다 다시 시도하세요"; 
     const { 
         id, 
         title,
@@ -22,8 +39,8 @@ export default function Page() {
         author,
         publisher,
         coverImgUrl 
-    } = mockData;
-
+    } = book;
+    
     return (
         <div className={style.container}>
             <div
