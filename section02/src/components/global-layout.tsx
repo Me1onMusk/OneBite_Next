@@ -7,7 +7,7 @@ export default function GlobalLayout({children}:{children: ReactNode}) {
     return (
         <div className={style.container}>
             <header className={style.header}>
-                <Link href={'/'}>OneBite Books</Link>
+                <Link href={'/'}>📚OneBite Books</Link>
             </header>
             <main className={style.main}>
                 {children}

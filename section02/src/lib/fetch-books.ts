@@ -2,8 +2,9 @@
 import { BookData } from "@/types_db";
 
 export default async function fetchBooks(q?: string) : Promise<BookData[]> {
-    let url = `http://localhost:12345/book`;
-
+    // let url = `http://localhost:12345/book`;
+    let url = 'https://onebite-books-server-main-zeta-nine.vercel.app/book';
+    
     // Query 질의 // 
     if(q)
         url += `/search?q=${q}`;

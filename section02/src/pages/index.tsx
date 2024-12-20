@@ -1,12 +1,12 @@
 
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import style from './index.module.css';
 import SearchableLayout from '@/components/searchable-layout';
-import books from '@/mock/books.json';
 import BookItem from '@/components/book-item';
 import { InferGetServerSidePropsType } from 'next';
 import fetchBooks from '@/lib/fetch-books';
 import fetchRandomBooks from '@/lib/fetch-random-books';
+import Head from 'next/head';
 
 // SSR 사전 랜더링 // 
 // 1번만 실행 
@@ -31,25 +31,48 @@ export const getServerSideProps = async() => {
     );
 }; 
 
+// ISR 방식 : 유통기한 제공 방식 // 
 // SSG 방식 (Build Time) : 기본 방식 // 
 // export const getStaticProps = async () => {
 //     // SSR 방식과 동일 // 
+//     const [allBooks, randomBooks] = await Promise.all([
+//         fetchBooks(),
+//         fetchRandomBooks()
+//     ]);
+
+//     return (
+//         { 
+//             props: { 
+//                 allBooks,
+//                 randomBooks
+//             },
+//             //revalidate: 3  //3초 간격으로 데이터 받아오기
+//         }
+//     );
 // };
 
 // 타입 자동 추론 : InferGetServerSidePropsType<typeof getServerSideProps> 
 export default function Home({allBooks, randomBooks}: InferGetServerSidePropsType<typeof getServerSideProps>) { 
 
     return (
-        <div className={style.container}>
-            <section>
-                <h3>📖지금 추천하는 도서</h3>  
-                {randomBooks.map((book)=><BookItem key={book.id} {...book} />)}
-            </section>
-            <section>
-                <h3>📚등록된 모든 도서</h3>
-                {allBooks.map((book)=><BookItem key={book.id} {...book} />)}
-            </section>
-        </div>
+        <>
+            <Head>
+                <title>한입북스</title>
+                <meta property='og:image' content='/thumbnail.png' />
+                <meta property='og:title' content='한입북스' />
+                <meta property='og:description' content='한입 북스에 등록된 도서들을 만나보세요' /> 
+            </Head>
+            <div className={style.container}>
+                <section>
+                    <h3>📖지금 추천하는 도서</h3>  
+                    {randomBooks.map((book)=><BookItem key={book.id} {...book} />)}
+                </section>
+                <section>
+                    <h3>📖등록된 모든 도서</h3>
+                    {allBooks.map((book)=><BookItem key={book.id} {...book} />)}
+                </section>
+            </div>
+        </>
     );
 };
 
