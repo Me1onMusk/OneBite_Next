@@ -1,7 +1,15 @@
 
-// 구조 분해 //
+/* 객체 */ 
+const person = {
+    name : "Kim",
+    age : 30
+}; 
 
-// promise //
+/* 구조 분해 */
+
+/* 
+    promise 
+*/
 const promise = new Promise ((resolve, reject)=> {
     const success = true;
     if(success) resolve("작업 성공");
@@ -17,4 +25,21 @@ promise
     })
 
 
-// async & await //
+/*
+    async & await 
+*/
+
+/*  
+    직렬화(Serialization) 
+        네트워크를 통해 전송하기 위해 변경
+        JS에서 함수는 직렬화가 불가능 함 
+    {"name":"Kim","age":30}; 
+*/
+const Person = {
+    name : "Kim",
+    age : 30    
+};
+
+/*
+    
+*/

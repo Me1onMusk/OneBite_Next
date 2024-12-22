@@ -1,11 +1,15 @@
 
+import books from '@/app/mock/books.json';
+import BookItem from '@/app/components/book-item';
 
-// 서버 Component // 
-export default async function Page({searchParams} : {searchParams:Promise<{q:string}>}) {
-    const { q } = await searchParams;
+export default async function Page({searchParams}:{searchParams:Promise<{q?: string}>}) {
     return (
         <div>
-            <h1>서치 결과{q}</h1>
+            {
+                books.map((book)=>
+                    <BookItem key={book.id} {...book} />
+                )
+            }
         </div>
     );
 };
