@@ -1,19 +1,20 @@
 
-import type { BookData } from "@/types_db";
+import { BookData } from '@/types_db';
+import Link from 'next/link';
 import style from './book-item.module.css';
-import Link from "next/link";
-import Image from "next/image";
+import Image from 'next/image';
 
+// 메인 > 북 아이템 // 
 export default function BookItem({
     id,
     title,
     subTitle,
     author,
     publisher,
-    coverImgUrl
+    coverImgUrl 
 }:BookData) {
     return (
-        <Link href={`/book/${id}`} className={style.container}>
+        <Link href={`book/${id}`} className={style.container}>
             <Image 
                 src={coverImgUrl}
                 width={80}

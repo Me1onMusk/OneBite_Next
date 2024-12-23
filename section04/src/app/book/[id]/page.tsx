@@ -1,5 +1,8 @@
 
+import { notFound } from 'next/navigation';
 import style from './page.module.css';
+import { delay } from '@/app/util/delay';
+import Image from 'next/image';
 
 // const mockData = {
 //     "id": 1,
@@ -11,10 +14,28 @@ import style from './page.module.css';
 //     "coverImgUrl": "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg"
 // };
 
+// export const dynamicParams = false; //1,2,3번 Params외로 접속 시 404 페이지로 이동 
+
+// 정적인 params 생성 // 
+// 동적 페이지 -> 정적 페이지 
+export function generateStaticParams() {
+    return (
+        [
+            {id:"1"}, {id:"2"},{id:"3"}
+        ]
+    );
+};
+
+// 동적(Dynamic) 페이지 // 
 export default async function Page({params}:{params:{id:string | string}}) {
     
+    await delay(1500);
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${params.id}`); 
-    if(!response.ok) return <div>오류가 발생했습니다...</div> 
+    if(!response.ok) {
+        if(response.status === 404) 
+            notFound(); 
+    }
     const book = await response.json();
 
     const { 
@@ -30,8 +51,12 @@ export default async function Page({params}:{params:{id:string | string}}) {
         <div className={style.container}>
             <div
                 className={style.cover_img_container} 
-                style={{backgroundImage: `url('${coverImgUrl}')` }}>
-                <img src={coverImgUrl} />
+                style={{backgroundImage: `url('${coverImgUrl}')` }}> 
+                <Image 
+                    src={coverImgUrl} 
+                    width={240} 
+                    height={300} 
+                    alt={`도서 ${title}의 표지 이미지`} /> 
             </div>
             <div className={style.title}>{title}</div>
             <div className={style.subTitle}>{subTitle}</div>
