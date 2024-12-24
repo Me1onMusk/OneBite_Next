@@ -19,13 +19,22 @@ async function Footer() {
     );
 };
 
-// 메인 //
+// 헤더 // 
+function Header() {
+    return (
+        <header>
+            <Link href={'/'}>📚OneBite Books</Link>
+        </header>
+    );
+};
+
+// 메인 Layout //
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="kr">
         <body>
             <div className={style.container}>
-                <header><Link href={'/'}>📚OneBite Books</Link></header>
+                <Header />
                 <main>
                     {children}
                 </main>
