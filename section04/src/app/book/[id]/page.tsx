@@ -46,7 +46,7 @@ export default async function Page({params}:{params:{id:string | string}}) {
         publisher,
         coverImgUrl 
     } = book;
-
+    
     return (
         <div className={style.container}>
             <div

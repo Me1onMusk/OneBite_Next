@@ -2,14 +2,15 @@
 import style from './page.module.css';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { createReviewAction } from '@/actions/create-review.action';
 import { ReviewData } from '@/types_db';
+import ReviewItem from '@/app/components/review-item';
+import { ReviewEditor } from '@/app/components/review-editor';
 
 // 동적 페이지 -> 정적 페이지 
 
 // 책 상세 함수 // 
-async function BookDetail({bookID}:{bookID:string}) { 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${bookID}`); 
+async function BookDetail({bookId}:{bookId:string}) { 
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${bookId}`); 
     if(!response.ok)
         if(response.status === 404) 
             notFound();
@@ -43,23 +44,15 @@ async function BookDetail({bookID}:{bookID:string}) {
     );
 }
 
-// 리뷰 작성하기 // 
-function ReviewEditor({bookID}:{bookID:string}) {
-    return (
-        <section>
-            <form action={createReviewAction}> 
-                <input name='bookID' value={bookID} hidden readOnly />
-                <input required name='content' placeholder='리뷰 내용' />
-                <input required name='author' placeholder='작성자' />
-                <button type='submit'>작성하기</button>
-            </form>
-        </section>
-    );
-};
-
 // 리뷰 불러오기 // 
-async function ReviewList({bookID}:{bookID:string}) { 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookID}`);
+async function ReviewList({bookId}:{bookId:string}) { 
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`,
+        {
+            next: {
+                tags: [`review-${bookId}`]
+            }
+        }
+    );
 
     if(!response.ok) 
         throw new Error(`Review fetch failed : ${response.statusText}`);
@@ -68,18 +61,20 @@ async function ReviewList({bookID}:{bookID:string}) {
 
     return (
         <section>
-
+            {
+                reviews.map((review) => (<ReviewItem key={`review-item-${review.id}`} {...review} />))
+            }
         </section>
     )
 }
 
 // ~/book/[id] // 
-export default function Page({params}:{params:{id:string}}) { 
-    return (
+export default function Page({ params }:{ params : { id : string } }) { 
+    return ( 
         <div className={style.container}>
-            <BookDetail bookID={params.id} />
-            <ReviewEditor bookID={params.id} />
-            <ReviewList bookID={params.id} />
+            <BookDetail bookId={params.id} />
+            <ReviewEditor bookId={params.id} />
+            <ReviewList bookId={params.id} />
         </div>
-    )
+    ); 
 }; 
