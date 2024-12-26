@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 
 async function SearchResult({q} : {q: string}) {
     delay(2000);
-
+    
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`); 
     if(!response.ok) 
         return <div>오류가 발생했습니다...</div> 

@@ -4,6 +4,12 @@
     gap: 10px;
     padding: 20px 10px;
     border-bottom: 1px solid rgb(220, 220, 220);
+    text-decoration: none;
+    color: black;
+}
+
+.container img {
+    width: 80px;
 }
 
 .title {
@@ -16,4 +22,9 @@
 
 .author {
     color: gray;
+}
+
+.container a {
+    color: black;
+    text-decoration: none;
 }

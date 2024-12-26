@@ -20,13 +20,13 @@ export const metadata: Metadata = {
 // 모든 책 출력 함수 // 
 async function AllBooks() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`);
-    if(!response.ok) return <div>오류가 발생했습니다...</div>
-    const allBooks : BookData[] = await response.json();
+    if(!response.ok) return <div>오류가 발생했습니다...</div> 
+    const allBooks : BookData[] = await response.json(); 
 
     return(
         <div>
             {
-                allBooks.map((book)=><BookItem key={book.id} {...book} />)
+                allBooks.map((book) => <BookItem key={book.id} {...book} />) 
             }
         </div>
     );
@@ -34,14 +34,14 @@ async function AllBooks() {
 
 // 추천 책 출력 함수 // 
 async function RecommandBooks() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`);
-    if(!response.ok) return <div>오류가 발생했습니다...</div>
-    const recommandBooks : BookData[] = await response.json();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`); 
+    if(!response.ok) return <div>오류가 발생했습니다...</div> 
+    const recommandBooks : BookData[] = await response.json(); 
 
     return (
         <div>
             {
-                recommandBooks.map((book)=><BookItem key={book.id} {...book} />)
+                recommandBooks.map((book) => <BookItem key={book.id} {...book} />) 
             }
         </div>
     );
