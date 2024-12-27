@@ -15,8 +15,8 @@ export default function ReviewItemDeleteButton({reviewId, bookId}:{reviewId : nu
     
     return (
         <form ref={formRef} action={formAction}>
-            <input name="reviewId" value={reviewId} hidden />
-            <input name="bookId" value={bookId} hidden />
+            <input name="reviewId" value={reviewId} hidden readOnly />
+            <input name="bookId" value={bookId} hidden readOnly />
             {
                 isPending ? (<div>...</div>) : 
                 (<div 

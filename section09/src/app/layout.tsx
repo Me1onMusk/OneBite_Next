@@ -4,6 +4,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import style from './layout.module.css';
 import { BookData } from "@/types_db";
+import { ReactNode } from "react";
 
 // 메타 데이터 // 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ async function Footer() {
 };
 
 // 메인 Layout //
-export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
+export default function RootLayout({children, modal}: Readonly<{children: ReactNode; modal: ReactNode;}>) {
   return (
     <html lang="kr">
         <body>
@@ -47,6 +48,8 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                 </main>
                 <Footer />
             </div>
+            {modal}
+            <div id="modal-root"></div>
         </body>
     </html>
   );
