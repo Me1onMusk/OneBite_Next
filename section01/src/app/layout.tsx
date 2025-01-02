@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import RecoilProvider from "./config/RecoilProvider";
+import ReactQueryProvider from "./config/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,12 +11,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
-    <RecoilProvider>
-    <html lang="en">
-      <body>
-        {children}
-      </body>
-    </html>
-    </RecoilProvider>
+    <ReactQueryProvider>
+        <RecoilProvider>
+            <html lang="en">
+            <body>
+                {children}
+            </body>
+            </html>
+        </RecoilProvider>
+    </ReactQueryProvider>
   );
 }; 
